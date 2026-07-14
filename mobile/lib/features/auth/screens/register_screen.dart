@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../services/auth_service.dart';
 import '../../../theme/app_theme.dart';
+import '../widgets/auth_scaffold.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -18,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _passwordController = TextEditingController();
 
   bool _isLoading = false;
+  bool _obscurePassword = true;
   String? _error;
 
   @override
@@ -52,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       Navigator.pop(context);
     } catch (e) {
       setState(() {
-        _error = e.toString().replaceFirst("Exception: ", "");
+        _error = e.toString().replaceFirst('Exception: ', '');
       });
     }
 
@@ -63,174 +65,97 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  InputDecoration inputDecoration(
-      String hint,
-      IconData icon,
-      ) {
-    return InputDecoration(
-      hintText: hint,
-      prefixIcon: Icon(icon),
-      filled: true,
-      fillColor: Colors.grey.shade100,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppPalette.midnightNavy,
-              AppPalette.courtroomBlue,
-              AppPalette.goldDark,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
-              child: Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
+    return AuthScaffold(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const AuthHeader(
+              title: 'Create Account',
+              subtitle: 'Start analysing FIRs with AI-powered legal intelligence',
+            ),
+            const SizedBox(height: 30),
+            const AuthFieldLabel('FULL NAME'),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: _fullNameController,
+              textCapitalization: TextCapitalization.words,
+              textInputAction: TextInputAction.next,
+              decoration: authInputDecoration(Icons.person_outline, 'Your full name'),
+              validator: (value) {
+                if (value == null || value.trim().length < 2) {
+                  return 'Enter your full name';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
+            const AuthFieldLabel('EMAIL ADDRESS'),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              autocorrect: false,
+              textInputAction: TextInputAction.next,
+              decoration: authInputDecoration(Icons.email_outlined, 'you@example.com'),
+              validator: (value) {
+                if (value == null || !value.contains('@')) {
+                  return 'Enter a valid email';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
+            const AuthFieldLabel('PASSWORD'),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: _passwordController,
+              obscureText: _obscurePassword,
+              textInputAction: TextInputAction.done,
+              decoration: authInputDecoration(Icons.lock_outline, 'At least 6 characters').copyWith(
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                    color: AppPalette.mutedInk,
+                  ),
+                  onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(25),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-
-                        const Icon(
-                          Icons.person_add,
-                          size: 70,
-                          color: AppPalette.goldDark,
-                        ),
-
-                        const SizedBox(height: 20),
-
-                        const Text(
-                          "Create Account",
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        const SizedBox(height: 10),
-
-                        TextFormField(
-                          controller: _fullNameController,
-                          decoration: inputDecoration(
-                            "Full Name",
-                            Icons.person,
-                          ),
-                          validator: (value) {
-                            if (value == null || value.trim().length < 2) {
-                              return "Enter your full name";
-                            }
-                            return null;
-                          },
-                        ),
-
-                        const SizedBox(height: 15),
-
-                        TextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: inputDecoration(
-                            "Email",
-                            Icons.email,
-                          ),
-                          validator: (value) {
-                            if (value == null ||
-                                !value.contains("@")) {
-                              return "Enter valid email";
-                            }
-                            return null;
-                          },
-                        ),
-
-                        const SizedBox(height: 15),
-
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration: inputDecoration(
-                            "Password",
-                            Icons.lock,
-                          ),
-                          validator: (value) {
-                            if (value == null ||
-                                value.length < 6) {
-                              return "Minimum 6 characters";
-                            }
-                            return null;
-                          },
-                        ),
-
-                        const SizedBox(height: 20),
-
-                        if (_error != null)
-                          Text(
-                            _error!,
-                            style: const TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-
-                        const SizedBox(height: 10),
-
-                        SizedBox(
-                          width: double.infinity,
-                          height: 55,
-                          child: ElevatedButton(
-                            onPressed:
-                            _isLoading ? null : _register,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                              AppPalette.courtroomBlue,
-                            ),
-                            child: _isLoading
-                                ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                                : const Text(
-                              "REGISTER",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(height: 15),
-
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "Already have an account? Login",
-                          ),
-                        ),
-                      ],
+              ),
+              validator: (value) {
+                if (value == null || value.length < 6) {
+                  return 'Minimum 6 characters';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 22),
+            if (_error != null) AuthErrorBanner(_error!),
+            AuthPrimaryButton(
+              label: 'CREATE ACCOUNT',
+              onPressed: _isLoading ? null : _register,
+              isLoading: _isLoading,
+            ),
+            const SizedBox(height: 18),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Already have an account?', style: TextStyle(color: AppPalette.mutedInk)),
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 4),
+                    child: Text(
+                      'Sign in',
+                      style: TextStyle(color: AppPalette.goldDark, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -126,7 +126,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               width: 38,
               height: 38,
               decoration: BoxDecoration(
-                color: AppPalette.gold.withOpacity(0.18),
+                color: AppPalette.gold.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(Icons.balance, color: AppPalette.goldDark, size: 20),
@@ -202,7 +202,7 @@ class _DesktopDashboard extends StatelessWidget {
               end: Alignment.bottomCenter,
             ),
             borderRadius: BorderRadius.circular(28),
-            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.12), blurRadius: 24, offset: const Offset(0, 10))],
+            boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.12), blurRadius: 24, offset: const Offset(0, 10))],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,7 +332,7 @@ class _HeroBanner extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [AppPalette.courtroomBlue, AppPalette.goldDark],
+          colors: [AppPalette.midnightNavy, AppPalette.courtroomBlue],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -343,8 +343,8 @@ class _HeroBanner extends StatelessWidget {
           Container(
             width: 58,
             height: 58,
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.16), shape: BoxShape.circle),
-            child: const Icon(Icons.person, color: Colors.white, size: 32),
+            decoration: BoxDecoration(color: AppPalette.gold.withValues(alpha: 0.22), shape: BoxShape.circle),
+            child: const Icon(Icons.person, color: AppPalette.gold, size: 32),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -359,14 +359,14 @@ class _HeroBanner extends StatelessWidget {
                   style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
                 ),
                 const SizedBox(height: 4),
-                const Text('Attorney-grade legal workspace', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
+                const Text('Attorney-grade legal workspace', style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w500)),
               ],
             ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.16), borderRadius: BorderRadius.circular(999)),
-            child: const Text('92.4% AI Accuracy', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700)),
+            decoration: BoxDecoration(color: AppPalette.gold.withValues(alpha: 0.20), borderRadius: BorderRadius.circular(999)),
+            child: const Text('92.4% AI Accuracy', style: TextStyle(color: AppPalette.gold, fontSize: 12, fontWeight: FontWeight.w700)),
           ),
         ],
       ),
@@ -417,13 +417,13 @@ class _StatTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 16, offset: const Offset(0, 6))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 16, offset: const Offset(0, 6))],
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: AppPalette.gold.withOpacity(0.16), borderRadius: BorderRadius.circular(14)),
+            decoration: BoxDecoration(color: AppPalette.gold.withValues(alpha: 0.16), borderRadius: BorderRadius.circular(14)),
             child: Icon(data.icon, color: AppPalette.goldDark),
           ),
           const SizedBox(width: 12),
@@ -551,7 +551,7 @@ class _HistoryPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 18, offset: const Offset(0, 8))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 8))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -618,10 +618,10 @@ class _HistoryTile extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isSelected ? AppPalette.gold.withOpacity(0.14) : const Color(0xfff6fafb),
+          color: isSelected ? AppPalette.gold.withValues(alpha: 0.14) : AppPalette.parchmentAlt,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? AppPalette.goldDark : const Color(0xffe3eef1),
+            color: isSelected ? AppPalette.goldDark : AppPalette.hairline,
             width: isSelected ? 1.4 : 1,
           ),
         ),
@@ -650,7 +650,7 @@ class _HistoryTile extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: BoxDecoration(
-                color: AppPalette.courtroomBlue.withOpacity(0.12),
+                color: AppPalette.courtroomBlue.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Text(
@@ -679,7 +679,7 @@ class _PanelCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 18, offset: const Offset(0, 8))],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 18, offset: const Offset(0, 8))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -719,7 +719,7 @@ class _UploadBox extends StatelessWidget {
           height: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(22),
-            border: Border.all(color: AppPalette.gold.withOpacity(0.35), width: 1.6),
+            border: Border.all(color: AppPalette.gold.withValues(alpha: 0.35), width: 1.6),
           ),
           child: Center(
             child: Column(
@@ -865,9 +865,9 @@ class _MiniPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xfff6fafb),
+        color: AppPalette.parchmentAlt,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xffe3eef1)),
+        border: Border.all(color: AppPalette.hairline),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -894,9 +894,9 @@ class _UrduCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: const Color(0xfff6fafb),
+        color: AppPalette.parchmentAlt,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xffe3eef1)),
+        border: Border.all(color: AppPalette.hairline),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -923,9 +923,9 @@ class _CaseTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xfff6fafb),
+        color: AppPalette.parchmentAlt,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xffe3eef1)),
+        border: Border.all(color: AppPalette.hairline),
       ),
       child: Row(
         children: [
@@ -1001,7 +1001,7 @@ class _SidebarFooter extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.08),
+        color: Colors.white.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -1009,7 +1009,7 @@ class _SidebarFooter extends StatelessWidget {
         children: [
           const Text('Empowering Justice', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
           const SizedBox(height: 6),
-          Text('with AI & Law', style: TextStyle(color: Colors.white.withOpacity(0.72))),
+          Text('with AI & Law', style: TextStyle(color: Colors.white.withValues(alpha: 0.72))),
         ],
       ),
     );
@@ -1024,7 +1024,7 @@ class _BrandBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.10),
+        color: Colors.white.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(18),
       ),
       child: const Icon(Icons.balance, size: 40, color: AppPalette.gold),
